@@ -1,4 +1,6 @@
 import app
+from . import fleur as fleur
+from tildagonos import tildagonos
 
 from events.input import Buttons, BUTTON_TYPES
 
@@ -16,8 +18,7 @@ class ScoutsApp(app.App):
 
     def draw(self, ctx):
         ctx.save()
-        ctx.rgb(0.2, 0, 0).rectangle(-120, -120, 240, 240).fill()
-        ctx.rgb(1, 0, 0).move_to(-80, 0).text("Hello world")
+        tildagonos.tft.bitmap(fleur, 50, 50)
         ctx.restore()
 
 __app_export__ = ScoutsApp
