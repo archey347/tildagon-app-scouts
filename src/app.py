@@ -1,6 +1,7 @@
 import app as app
 import sys
 import os
+import time
 
 from app_components import clear_background
 from events.input import Buttons, BUTTON_TYPES
@@ -25,27 +26,35 @@ else:
 
 class ExampleApp(app.App):
     def __init__(self):
-        self.image = "se"
+        self.images = ["fleur", "se", "cake"]
+        self.image_index = 0
+        self.wait = 4
+        self.last_change = time.time()
         self.button_states = Buttons(self)
 
     def update(self, delta):
-        if self.button_states.get(BUTTON_TYPES["RIGHT"]):
-            self.image = "fleur"
-        elif self.button_states.get(BUTTON_TYPES["LEFT"]):
-            self.image = "se"
-        elif self.button_states.get(BUTTON_TYPES["CANCEL"]):
+        if self.button_states.get(BUTTON_TYPES["CANCEL"]):
             self.button_states.clear()
+
+        if self.last_change + self.wait < time.time():
+            self.image_index = (self.image_index + 1) % len(self.images)
+            self.last_change = time.time()
 
     def draw(self, ctx):
         clear_background(ctx)
         ctx.save()
-        #
-        if self.image == "fleur":
+        
+        img = self.images[self.image_index]
+
+        if img == "fleur":
             ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
             ctx.image(ASSET_PATH + "fleur.jpg", -90, -80, 180, 164)
-        else:
+        elif img == "se":
             ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
             ctx.image(ASSET_PATH + "se.jpg", -99, -100, 198, 200)
+        elif img == "cake":
+            ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
+            ctx.image(ASSET_PATH + "cake.jpg", -100, -100, 200, 200)
 
         ctx.restore()
 
