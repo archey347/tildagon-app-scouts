@@ -25,16 +25,28 @@ else:
 
 class ExampleApp(app.App):
     def __init__(self):
+        self.image = "se"
         self.button_states = Buttons(self)
 
     def update(self, delta):
-        if self.button_states.get(BUTTON_TYPES["CANCEL"]):
+        if self.button_states.get(BUTTON_TYPES["RIGHT"]):
+            self.image = "fleur"
+        elif self.button_states.get(BUTTON_TYPES["LEFT"]):
+            self.image = "se"
+        elif self.button_states.get(BUTTON_TYPES["CANCEL"]):
             self.button_states.clear()
 
     def draw(self, ctx):
         clear_background(ctx)
         ctx.save()
-        ctx.image(ASSET_PATH + "fleur.jpg", -80, -80, 180, 164)
+        #
+        if self.image == "fleur":
+            ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
+            ctx.image(ASSET_PATH + "fleur.jpg", -90, -80, 180, 164)
+        else:
+            ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
+            ctx.image(ASSET_PATH + "se.jpg", -99, -100, 198, 200)
+
         ctx.restore()
 
 
