@@ -2,7 +2,7 @@
 
 A scout-y themed app.
 
-Contains bitmaps for Scouts' fleur-de-lis and the [S&E logo](https://s-e.org.uk/). Yet to be tested.
+Displays Scouts' fleur-de-lis or the [S&E logo](https://s-e.org.uk/) (switch with left/right buttons).
 
 ## Generating bitmaps
 
