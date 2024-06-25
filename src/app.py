@@ -1,60 +1,41 @@
-import app
-from . import fleur as fleur
-import asyncio
+import app as app
+import sys
+import os
 
+from app_components import clear_background
 from events.input import Buttons, BUTTON_TYPES
-from system.patterndisplay.events import *
-from system.eventbus import eventbus
-from tildagonos import tildagonos
+
+if sys.implementation.name == "micropython":
+    apps = os.listdir("/apps")
+    path = ""
+    for a in apps:
+        # This is important for apps deployed to the appstore
+        # The Snake app from naomi stored at
+        # https://github.com/npentrel/tildagon-snake/
+        # has all its files in the folder
+        # npentrel_tildagon_snake
+        if a == "scouts":
+            path = "/apps/" + a
+    ASSET_PATH = path + "/"
+else:
+    # while testing, put your files in the folder you are developing in,
+    # for example: example/streak.jpg
+    ASSET_PATH = "apps/example/"
 
 
-class ScoutsApp(app.App):
-    screen_size = ((-120, -120), (240, 240))
-    on_color = (220, 11, 141)
-    color: tuple[int, int, int] = on_color
-    on: bool = True
-    party_task = None
-
+class ExampleApp(app.App):
     def __init__(self):
         self.button_states = Buttons(self)
-        eventbus.emit(PatternDisable())
-        tildagonos.init_display()
-        self.draw_fleur()
 
     def update(self, delta):
-        if self.button_states.get(BUTTON_TYPES["RIGHT"]):
-            self.toggle()
-        if self.button_states.get(BUTTON_TYPES["LEFT"]):
-            self.draw_fleur()
-        elif self.button_states.get(BUTTON_TYPES["CANCEL"]):
-            # The button_states do not update while you are in the background.
-            # Calling clear() ensures the next time you open the app, it stays open.
-            # Without it the app would close again immediately.
+        if self.button_states.get(BUTTON_TYPES["CANCEL"]):
             self.button_states.clear()
 
     def draw(self, ctx):
+        clear_background(ctx)
         ctx.save()
-        # ctx.font_size = 20
-        # ctx.text_align = ctx.CENTER
-        # ctx.text_baseline = ctx.MIDDLE
-        ctx.rgb(
-            self.color[0],
-            self.color[1],
-            self.color[2],
-        ).rectangle(
-            self.screen_size[0][0],
-            self.screen_size[0][1],
-            self.screen_size[1][0],
-            self.screen_size[1][1],
-        ).fill()
-
+        ctx.image(ASSET_PATH + "fleur.jpg", -80, -80, 180, 164)
         ctx.restore()
 
-    def toggle(self):
-        self.color = self.on_color if self.color == (0, 0, 0) else (0, 0, 0)
-        self.on = not self.on
 
-    def draw_fleur(self):
-        tildagonos.tft.bitmap(se, 60, 70)
-
-__app_export__ = ScoutsApp
+__app_export__ = ExampleApp
