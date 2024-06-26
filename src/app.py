@@ -91,6 +91,7 @@ class SlideApp(app.App):
 
     def update(self, delta):
         if self.button_states.get(BUTTON_TYPES["CANCEL"]):
+            self.minimise()
             self.button_states.clear()
 
         if self.last_change + self.wait < time.time():
