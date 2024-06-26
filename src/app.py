@@ -5,6 +5,11 @@ import time
 
 from app_components import clear_background
 from events.input import Buttons, BUTTON_TYPES
+from tildagonos import tildagonos
+from system.eventbus import eventbus
+from system.patterndisplay.events import *
+
+LEDS = 12
 
 SCOUTS_PURPLE = (116, 20, 220)
 SCOUTS_TEAL = (6, 132, 134)
@@ -47,20 +52,37 @@ class Fleur(Slide):
         ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
         ctx.image(ASSET_PATH + "fleur.jpg", -90, -80, 180, 164)
 
+        for i in range(LEDS):
+            tildagonos.leds[i + 1] = SCOUTS_PURPLE
+        
+        tildagonos.leds.write()
+
+
 class SE(Slide):
     def draw(self, ctx):
         ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
         ctx.image(ASSET_PATH + "se.jpg", -99, -100, 198, 200)
+
+        for i in range(LEDS):
+            tildagonos.leds[i + 1] = SE_DARK_GREEN
+        
+        tildagonos.leds.write()
         
 class Cake(Slide):
     def draw(self, ctx):
         ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
-        ctx.image(ASSET_PATH + "cake.jpg", -100, -100, 200, 200)
+        ctx.image(ASSET_PATH + "cake.jpg", -80, -80, 160, 160)
+
+        for i in range(LEDS):
+            tildagonos.leds[i + 1] = SCOUTS_ORANGE
+        
+        tildagonos.leds.write()
 
 
 
 class SlideApp(app.App):
     def __init__(self):
+        eventbus.emit(PatternDisable())
         self.slides = [Fleur(), SE(), Cake()]
         self.image_index = 0
         self.wait = 4
@@ -72,7 +94,7 @@ class SlideApp(app.App):
             self.button_states.clear()
 
         if self.last_change + self.wait < time.time():
-            self.image_index = (self.image_index + 1) % len(self.images)
+            self.image_index = (self.image_index + 1) % len(self.slides)
             self.last_change = time.time()
 
     def draw(self, ctx):
