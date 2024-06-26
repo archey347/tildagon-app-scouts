@@ -6,6 +6,20 @@ import time
 from app_components import clear_background
 from events.input import Buttons, BUTTON_TYPES
 
+SCOUTS_PURPLE = (116, 20, 220)
+SCOUTS_TEAL = (6, 132, 134)
+SCOUTS_RED = (237, 64, 36)
+SCOUTS_GREEN = (38, 183, 86)
+SCOUTS_NAVY = (0, 58, 130)
+SCOUTS_BLUE = (0, 110, 224)
+SCOUTS_PINK = (255, 180, 229)
+SCOUTS_YELLOW = (255, 230, 39)
+SCOUTS_ORANGE = (255, 145, 42)
+SCOUTS_FOREST_GREEN = (32, 91, 65)
+
+SE_DARK_GREEN = (120, 146, 75)
+SE_LIGHT_GREEN = (183, 213, 67)
+
 if sys.implementation.name == "micropython":
     apps = os.listdir("/apps")
     path = ""
@@ -24,9 +38,30 @@ else:
     ASSET_PATH = "apps/example/"
 
 
-class ExampleApp(app.App):
+class Slide:
+    def draw(self, ctx):
+        raise "Not implemented"
+
+class Fleur(Slide):
+    def draw(self, ctx):
+        ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
+        ctx.image(ASSET_PATH + "fleur.jpg", -90, -80, 180, 164)
+
+class SE(Slide):
+    def draw(self, ctx):
+        ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
+        ctx.image(ASSET_PATH + "se.jpg", -99, -100, 198, 200)
+        
+class Cake(Slide):
+    def draw(self, ctx):
+        ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
+        ctx.image(ASSET_PATH + "cake.jpg", -100, -100, 200, 200)
+
+
+
+class SlideApp(app.App):
     def __init__(self):
-        self.images = ["fleur", "se", "cake"]
+        self.slides = [Fleur(), SE(), Cake()]
         self.image_index = 0
         self.wait = 4
         self.last_change = time.time()
@@ -43,20 +78,7 @@ class ExampleApp(app.App):
     def draw(self, ctx):
         clear_background(ctx)
         ctx.save()
-        
-        img = self.images[self.image_index]
-
-        if img == "fleur":
-            ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
-            ctx.image(ASSET_PATH + "fleur.jpg", -90, -80, 180, 164)
-        elif img == "se":
-            ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
-            ctx.image(ASSET_PATH + "se.jpg", -99, -100, 198, 200)
-        elif img == "cake":
-            ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
-            ctx.image(ASSET_PATH + "cake.jpg", -100, -100, 200, 200)
-
+        self.slides[self.image_index].draw(ctx)
         ctx.restore()
 
-
-__app_export__ = ExampleApp
+__app_export__ = SlideApp
