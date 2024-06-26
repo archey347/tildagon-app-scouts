@@ -4,13 +4,9 @@ install:
 	
 	
 update:
-	/root/.local/bin/mpremote a0 cp ./src/app.py :/apps/scouts/
-	/root/.local/bin/mpremote a0 cp ./src/metadata.json :/apps/scouts/
-	/root/.local/bin/mpremote a0 cp ./src/assets/* :/apps/scouts/assets/
-	
-
-	
-
+	/root/.local/bin/mpremote a0 cp ./app.py :/apps/scouts/
+	/root/.local/bin/mpremote a0 cp ./metadata.json :/apps/scouts/
+	/root/.local/bin/mpremote a0 cp ./assets/* :/apps/scouts/assets/
 
 shell:
 	/root/.local/bin/mpremote a0
