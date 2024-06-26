@@ -34,14 +34,9 @@ if sys.implementation.name == "micropython":
         # https://github.com/npentrel/tildagon-snake/
         # has all its files in the folder
         # npentrel_tildagon_snake
-        if a == "scouts":
+        if a == "archey347_tildagon_app_scouts" or a == "scouts":
             path = "/apps/" + a
-    ASSET_PATH = path + "/"
-else:
-    # while testing, put your files in the folder you are developing in,
-    # for example: example/streak.jpg
-    ASSET_PATH = "apps/example/"
-
+    ASSET_PATH = path + "/assets/"
 
 class Slide:
     def draw(self, ctx):
