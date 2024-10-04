@@ -1,6 +1,6 @@
 [app]
 # The name of your app as displayed in the menu
-name = "S&E 2024"
+name = "BEAST CAMP"
 
 # The submenu where your app should appear.
 # One of: "Badge", "Music", "Media", "Apps", "Games"
@@ -37,4 +37,4 @@ description = "An app for Strategy & Evolution 2024!"
 # increased, we interpret this as a new version being released.
 #
 # Version number must be an string!
-version = "0.1.0"
+version = "0.2.0"
