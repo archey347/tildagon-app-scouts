@@ -31,10 +31,10 @@ license = "LGPL-3.0-only"
 url = "https://www.github.com/archey347/tildagon-app-scouts"
 
 # Description of your app.  Maximum 140 characters!
-description = "An app for Strategy & Evolution 2024!"
+description = "An app for BEAST camp 2024!"
 
 # Version number of your app.  If you push a commit where this number is
 # increased, we interpret this as a new version being released.
 #
 # Version number must be an string!
-version = "0.2.0"
+version = "0.2.1"
