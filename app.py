@@ -26,6 +26,8 @@ SCOUTS_FOREST_GREEN = (32, 91, 65)
 SE_DARK_GREEN = (120, 146, 75)
 SE_LIGHT_GREEN = (183, 213, 67)
 
+BEAST_ORANGE = (251, 202, 47)
+
 WAIT = 10
 
 def getT():
@@ -126,6 +128,14 @@ class Fleur(Slide):
         set_colour(SCOUTS_PURPLE)
         set_leds(t)
 
+class Beast(Slide):
+    def draw(self, ctx, t):
+        ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
+        ctx.image(ASSET_PATH + "beast.jpg", -100, -91, 200, 182)
+
+        set_colour(BEAST_ORANGE)
+        set_leds(t)
+
 class SE(Slide):
     def draw(self, ctx, t):
         ctx.rgb(0, 0, 0).rectangle(-120, -120, 240, 240).fill()
@@ -145,7 +155,7 @@ class Cake(Slide):
 class SlideApp(app.App):
     def __init__(self):
         eventbus.emit(PatternDisable())
-        self.slides = [Fleur(), SE(), Cake()]
+        self.slides = [Fleur(), Beast()]
         self.last_change = time.time()
         self.button_states = Buttons(self)
 

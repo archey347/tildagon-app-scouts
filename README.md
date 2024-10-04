@@ -2,8 +2,9 @@
 
 A scout-y themed app.
 
-Displays Scouts' fleur-de-lis or the [S&E logo](https://s-e.org.uk/) (switch with left/right buttons).
-
+Displays Scouts' fleur-de-lis and event related stuff:
+- S&E
+- Beast
 ## Generating bitmaps
 
 See [https://tildagon.badge.emfcamp.org/tildagon-apps/examples/bitmaps/](https://tildagon.badge.emfcamp.org/tildagon-apps/examples/bitmaps/)
